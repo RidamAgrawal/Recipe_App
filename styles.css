@@ -1,0 +1,499 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --base-clr:#F2DAA0;
+    --line-clr:#42434a;
+    --hover-clr:#222533;
+    --sideBar-hover-clr:#3B2E28;
+    --text-clr:#11121a;
+    --accent-clr:#5e63ff;
+    --navBar-clr:#D195EA;
+    --secondary-text-clr:#b0b3c1;
+    --secondary-base-clr:#271F26;
+    --view-height: 100vh;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: whitesmoke;
+    color: var(--text-clr);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "navBar navBar navBar"
+    "sideBar1 main sideBar2";
+}
+input::placeholder{
+    color:green;
+    /* background-color: yellow; */
+}
+ul li button,ul li a{
+    display: grid;
+    width: 3rem;
+    height: 100%;
+    place-items: center;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--text-clr);
+    font-size: 0.5rem;
+    font-weight: 700;
+}
+ul li button svg,ul li a svg{
+    fill: var(--text-clr);
+}
+nav{
+    grid-area: navBar;
+    width: 100%;
+    height: 3rem;
+    background-color: var(--base-clr);
+    position: sticky;
+    top: 0;
+    align-self: start;
+    z-index: 1;
+    > ul li{height: 100%;} 
+}
+nav ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    list-style-type: none;
+}
+nav ul li:nth-child(2){
+    flex-grow: 1;
+    text-align: center;
+}
+nav ul li button.users{
+    width: fit-content;
+    min-width: 3rem;
+    font-weight: 800;
+}
+.modal{
+    display: none;
+}
+.modal.show{
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.253);
+    position: fixed;
+    z-index: 2;
+}
+.modalContent{
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    min-height: fit-content;
+    height: 50%;
+    width: 50%;
+    grid-template-areas: 
+    'modalContentHeader'
+    'modalContentBody';
+    display: none;
+    background-color: aquamarine;
+    .login,.signup,.editProfile,.updatePassword{
+        display:none;
+        width: 100%;
+    }
+    .login.show,.signup.show,.editProfile.show,.updatePassword.show{
+        display: grid;
+    }
+}
+.modalContent.show{
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+.modalContent.addRecipe .modalHeader{
+    > span:nth-child(2){
+        flex-grow: 0;
+        flex-shrink: 1;
+    }
+}
+.modalHeader{
+    grid-area: modalContentHeader;
+    display: flex;
+    cursor: pointer;
+    > span:nth-child(1),> span:nth-child(2){
+        flex-grow: 1;
+        text-align: center;
+    }
+    > span:last-child{
+        width: fit-content;
+        flex-shrink: 1;
+    }
+}
+.modalBody{
+    grid-area: modalContentBody;
+}
+.fakeSideBar1{
+    grid-area: sideBar1;
+}
+.fakeSideBar2{
+    grid-area: sideBar2;
+}
+.fakeSideBar1,.fakeSideBar2{
+    width: 3rem;
+}
+/* .sideBar1{
+    grid-area: sideBar1;
+} */
+.sideBar1 ul li button:hover,.sideBar1 ul li a:hover,.sideBar2 ul li button:hover,.sideBar2 ul li a:hover,nav ul li button:hover,nav ul li a:hover{
+    background-color: var(--sideBar-hover-clr);
+    color: white;
+    svg{
+        fill: white;
+    }
+}
+.sideBar1 ul li .dropDown button:nth-child(2),.sideBar2 ul li .dropDown button:nth-child(3){
+    /* place-self: center; */
+    font-size: 20px;
+    transition: 300ms ease-in-out;
+}
+.sideBar1 ul li .dropDown button:nth-child(2):hover,.sideBar2 ul li .dropDown button:nth-child(3):hover{
+    background-color: transparent;
+    svg{
+        fill:inherit;
+    }
+}
+.rotate{
+    rotate: 180deg;
+}
+.subMenu{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 300ms ease-in-out;
+    > div{
+        overflow: hidden;
+    }
+}
+.subMenu.show{
+    grid-template-rows: 1fr;
+}
+.sideBar1 ul li button.active{
+    color: var(--accent-clr);
+    svg{
+        fill:var(--accent-clr)
+    }
+}
+.sideBar2{
+    /* grid-area: sideBar2; */
+    right: 0px;
+}
+.sideBar1 ,.sideBar2{
+    background-color: var(--base-clr);
+    display: grid;
+    grid-template-columns: 1fr;
+    transition: 300ms ease-in-out;
+    position: fixed;
+    top:3rem;
+    height: calc(100% - 3rem);
+    align-self: start;
+    > ul{
+        list-style: none;
+        overflow: hidden;
+    }
+}
+.sideBar2 ul li button.hide,.sideBar2 ul li a.hide{
+    display: none;
+}
+.sideBar2.hide,.sideBar1.hide{
+    grid-template-columns: 0fr;
+}
+.indexBar{
+    position: fixed;
+    top: 4.5rem;
+    left: calc(0.5 * 100vw);
+    transform: translate(-50%,-50%);
+    background-color: var(--base-clr);
+    z-index: 2;
+    > ul{
+        list-style: none;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.indexBar >ul.show{
+    display: flex;
+}
+/* .indexBar ul li button,.indexBar ul li{
+    background-color: var(--base-clr);
+} */
+.indexBar ul li button:hover{
+    background-color: var(--sideBar-hover-clr);
+    color: white;
+    svg{
+        fill: white;
+    }
+}
+.indexBar ul li button.clicked{
+    /* transition: 300ms; */
+    svg{animation: clicked 500ms both;}
+}
+@keyframes clicked {
+    0%{
+        padding-left: 1rem;
+        padding-right: 0rem;
+    }
+    25%{
+        padding-right: 1rem;
+        padding-left: 0rem;
+    }
+    50%{
+        padding-left: 1rem;
+        padding-right: 0rem;
+    }
+    75%{
+        padding-right: 1rem;
+        padding-left: 0rem;
+    }
+    100%{
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+}
+.notificationBar{
+    position: absolute;
+    display: none;
+    top: 3rem;
+    right: 3rem;
+    height: 4rem;
+    transition: 500ms;
+    z-index: 3;
+    /* width: 3rem; */
+}
+.notificationBar.show{
+    text-wrap: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.notificationBar.danger{
+    background-color: crimson;
+}
+.notificationBar.alert{
+    background-color: blanchedalmond;
+}
+.notificationBar.success{
+    background-color: chartreuse;
+}
+main{
+    grid-area: main;
+    display:grid;
+    margin: 0 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 40px;
+}
+main.showRecipe{
+    display: block;
+}
+.card{
+    transition: 300ms ease-in-out;
+    place-items: center;
+    margin: 20px;
+    padding: 4px;
+    background-color: var(--base-clr);
+    border-radius: 1rem;
+}
+.cardImage > img{
+    transition: 300ms ease-in-out;
+    border-radius: 0.8rem;
+}
+.card:hover{
+    margin: 8px;
+    padding: 16px;
+    opacity: 0.8;
+    .cardImage > img{
+        /* scale: 1.1; */
+        z-index: 0;
+    }
+}
+.time{
+    display: flex;
+    align-items: center;
+}
+.RecipeTitle div:nth-child(2){
+    display: flex;
+    align-items: center;
+    > h3{
+        flex-grow: 1;
+    }
+    > ul{
+        display: flex;
+        list-style: none;
+        flex-shrink: 1;
+    }
+    .hide{
+        display: none;
+    }
+}
+.RecipeImage{
+    display: grid;
+    grid-template-columns: 1fr 30rem;
+
+}
+.RecipeDetails{
+    font-weight: 800;
+    font-size: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 3rem;
+    > span > a{display: flex; text-decoration: none;color: inherit;cursor: pointer;}
+}
+.image > img{
+    float: right;
+    width: 30rem;
+    height: 25rem;
+    border-radius: 1rem;
+}
+.translatedIngredients{
+    > ol{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.commentSection{
+    padding-bottom: 4rem;
+    ul{
+        width: fit-content;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+    }
+}
+.addComment,.cmt div:first-child{
+    display: flex;
+    margin-bottom: 1rem;
+}
+.cmt div:nth-child(2){
+    padding-left: 2rem;
+}
+.cmt:hover{
+    div:nth-child(2) > ul{
+        visibility: visible;
+        svg{
+            fill: #11121a;
+        }
+        span{
+            color: #11121a;
+        }
+    }
+}
+.cmt div:nth-child(2) > ul{
+    visibility: hidden;
+    svg{
+        fill: var(--base-clr);
+        transition: 1s;
+    }
+    span{color: var(--base-clr);transition: 1s;}
+}
+.d-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    > span{
+        width: fit-content;
+    }
+    > ul{
+        list-style-type: none;
+        margin-bottom: 0;
+    }
+}
+.addRecipe .d-input{
+    width: 15rem;
+}
+.d-input{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: inherit;
+}
+
+.d-input label{
+    position: absolute;
+    font-size: 0.8rem;
+    padding-top: 1px;
+    top: 0.1rem;
+    left: 1rem;
+    transition: 0.3s;
+    height: 0.8rem;
+    background: aquamarine;
+}
+.d-input input{
+    height: 1.5rem;
+}
+.d-input input,.d-input textarea{
+    width: 15rem;
+    padding-left: 1rem;
+    background-color: transparent;
+    color: transparent;
+    border: 1px solid black;
+    outline: none;
+}
+.addRecipe .d-flex{
+    margin-bottom: 1rem;
+}
+.d-input input:focus~label,.d-input label.checked,.d-input textarea:focus~label{
+    top: -30%;
+    font-size: 10px;
+}
+.d-input input:focus,.d-input textarea:focus,.d-input input.checked{
+    color: black;
+}
+.d-flex.hide,.d-flex .hide{
+    display: none;
+}
+@media (max-width: 800px){
+    body{
+        width: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto auto;
+        grid-template-areas: 
+        "navBar"
+        "main"
+        "sideBar1"
+        "sideBar2";
+    }
+    nav{
+        > ul{
+            width: 100vw;
+        }
+    }
+    .modalContent{
+        left: 10%;
+        width: 80%;
+    }
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(12 , auto);
+    }
+    .d-input input,.d-input textarea{
+        height: 2rem;
+    }
+    main.showRecipe{
+        width: calc(100% - 6rem);
+        padding: 0;
+        margin: 3rem 3rem;
+    }
+    .RecipeImage{
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr;
+        > .image > img{
+            width: calc(100% - 1rem);
+        }
+    }
+}
